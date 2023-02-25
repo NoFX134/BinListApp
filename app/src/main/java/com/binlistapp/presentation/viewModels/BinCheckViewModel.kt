@@ -16,6 +16,9 @@ class BinCheckViewModel @Inject constructor(
     @DispatcherIO private val dispatcherIO: CoroutineDispatcher,
 ) : ViewModel() {
 
+    init {
+        fetchCardInformation("qw")
+    }
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         ifDebug { Log.e("COROUTINE_EXCEPTION", "$throwable\n${throwable.stackTraceToString()}") }
     }
@@ -25,8 +28,8 @@ class BinCheckViewModel @Inject constructor(
     val cardInformationStateFlow = binRepository.cardInformationStateFlow
 
     fun fetchCardInformation(bin: String) {
-        viewModelScope.launch(dispatcherIO + coroutineExceptionHandler) {
-            binRepository.fetchCardInformation(bin)
+        viewModelScope.launch(dispatcherIO) {
+            binRepository.fetchCardInformation("45717360")
         }
     }
 }

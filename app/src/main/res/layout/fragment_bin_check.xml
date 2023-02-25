@@ -1,8 +1,215 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context="com.binlistapp.presentation.fragments.BinCheckFragment">
 
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_marginTop="8dp"
+        android:id="@+id/binInputField"
+        android:layout_width="212dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:inputType="numberDecimal"
+        android:textSize="32sp"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-</FrameLayout>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/binInputFieldHint"
+        style="@style/TextAppearance.Hint"
+        android:text="@string/bin_input_field_hint" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardInformation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/schemeNetworkTitle"
+            style="@style/TextAppearance.Title"
+            android:layout_margin="8dp"
+            android:text="@string/scheme_network"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/schemeNetworkContent"
+            style="@style/TextAppearance.Content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/schemeNetworkTitle"
+            tools:text="Visa" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/brandTitle"
+            style="@style/TextAppearance.Title"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/brand"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/schemeNetworkContent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/brandContent"
+            style="@style/TextAppearance.Title"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/brandTitle"
+            tools:text="Visa/Dankort" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/cardNumberTitle"
+            style="@style/TextAppearance.Content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/card_number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/brandContent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/lengthTitle"
+            style="@style/TextAppearance.SmallTitle"
+            android:layout_marginStart="8dp"
+            android:text="@string/length"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardNumberTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/luhnTitle"
+            style="@style/TextAppearance.SmallTitle"
+            android:layout_marginStart="24dp"
+            android:text="@string/luhn"
+            app:layout_constraintStart_toEndOf="@id/lengthTitle"
+            app:layout_constraintTop_toBottomOf="@+id/cardNumberTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/lengthContent"
+            style="@style/TextAppearance.Content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lengthTitle"
+            tools:text="16" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/luhnContent"
+            style="@style/TextAppearance.Title"
+            android:layout_marginStart="24dp"
+            android:text="@string/yes_no"
+            app:layout_constraintStart_toEndOf="@id/lengthTitle"
+            app:layout_constraintTop_toBottomOf="@+id/luhnTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/typeTitle"
+            style="@style/TextAppearance.Title"
+            android:layout_marginStart="@dimen/side_indent"
+            android:layout_marginTop="8dp"
+            android:text="@string/type"
+            app:layout_constraintStart_toEndOf="@id/schemeNetworkTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/typeContent"
+            style="@style/TextAppearance.Title"
+            android:layout_marginStart="@dimen/side_indent"
+            android:text="@string/debit_credit"
+            app:layout_constraintStart_toEndOf="@id/schemeNetworkTitle"
+            app:layout_constraintTop_toBottomOf="@+id/typeTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/prepaidTitle"
+            style="@style/TextAppearance.Title"
+            android:layout_marginStart="@dimen/side_indent"
+            android:layout_marginTop="16dp"
+            android:text="@string/prepaid"
+            app:layout_constraintStart_toEndOf="@id/schemeNetworkTitle"
+            app:layout_constraintTop_toBottomOf="@+id/typeContent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/prepaidContent"
+            style="@style/TextAppearance.Title"
+            android:layout_marginStart="@dimen/side_indent"
+            android:text="@string/yes_no"
+            app:layout_constraintStart_toEndOf="@id/schemeNetworkTitle"
+            app:layout_constraintTop_toBottomOf="@+id/prepaidTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/countryTitle"
+            style="@style/TextAppearance.Title"
+            android:layout_marginStart="@dimen/side_indent"
+            android:layout_marginTop="16dp"
+            android:text="@string/country"
+            app:layout_constraintStart_toEndOf="@id/schemeNetworkTitle"
+            app:layout_constraintTop_toBottomOf="@+id/prepaidContent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/countryEmoji"
+            style="@style/TextAppearance.SmallContent"
+            android:layout_marginStart="@dimen/side_indent"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toEndOf="@id/schemeNetworkTitle"
+            app:layout_constraintTop_toBottomOf="@+id/countryTitle"
+            tools:text="DKK" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/countryName"
+            style="@style/TextAppearance.Content"
+            android:layout_marginStart="2dp"
+            android:ellipsize="end"
+            android:maxEms="8"
+            android:singleLine="true"
+            app:layout_constraintStart_toEndOf="@id/countryEmoji"
+            app:layout_constraintTop_toBottomOf="@+id/countryTitle"
+            tools:text="Unites States of America" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/coordinates"
+            style="@style/TextAppearance.SmallContent"
+            android:layout_marginStart="@dimen/side_indent"
+            app:layout_constraintStart_toEndOf="@id/schemeNetworkTitle"
+            app:layout_constraintTop_toBottomOf="@+id/countryName"
+            tools:text="latitude: -123.133 \nlongitude: -144.255" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/bankTitle"
+            style="@style/TextAppearance.Title"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/bank"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/coordinates" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/bankNameCity"
+            android:lineSpacingExtra="0dp"
+            style="@style/TextAppearance.Content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bankTitle"
+            tools:text="Jyske Bank, Hjørring" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/bankUrl"
+            style="@style/TextAppearance.Url"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bankNameCity"
+            tools:text="www.avbpgh.com" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/bankPhone"
+            style="@style/TextAppearance.SmallContent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bankUrl"
+            tools:text="1-800-528-2273" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
