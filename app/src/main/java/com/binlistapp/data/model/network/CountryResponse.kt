@@ -6,6 +6,6 @@ data class CountryResponse(
     val name: String?,
     val emoji: String?,
     val currency: String?,
-    val latitude: Short?,
-    val longitude: Short?,
+    val latitude: Double?,
+    val longitude: Double?,
 )

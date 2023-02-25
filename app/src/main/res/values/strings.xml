@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">BinListApp</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="scheme_network">SCHEME/NETWORK</string>
+    <string name="brand">BRAND</string>
+    <string name="card_number">CARD NUMBER</string>
+    <string name="length">LENGTH</string>
+    <string name="luhn">LUHN</string>
+    <string name="yes_no">Yes/No</string>
+    <string name="type">TYPE</string>
+    <string name="prepaid">PREPAID</string>
+    <string name="debit_credit">Debit/Credit</string>
+    <string name="country">COUNTRY</string>
+    <string name="bank">BANK</string>
+    <string name="bin_input_field_hint">Enter the first digits of a card number (BIN/IIN)</string>
+    <string name="debit">debit</string>
+    <string name="credit">credit</string>
+    <string name="history">История запросов</string>
 </resources>

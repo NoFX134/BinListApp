@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.Medium" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:textColor">?attr/titleTextColor</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="TextAppearance.Title" parent="TextAppearance.Medium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="TextAppearance.SelectTitle" parent="TextAppearance.Title">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/selectTextColor</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+
+    </style>
+
+    <style name="TextAppearance.SmallTitle" parent="TextAppearance.Medium">
+        <item name="android:textSize">10sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="TextAppearance.Content" parent="TextAppearance.Medium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="TextAppearance.SmallContent" parent="TextAppearance.Content">
+        <item name="android:textSize">10sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="TextAppearance.Url" parent="TextAppearance.SmallContent">
+        <item name="android:textColor">?attr/urlColor</item>
+    </style>
+
+
+    <style name="TextAppearance.Hint" parent="TextAppearance.Medium">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+</resources>

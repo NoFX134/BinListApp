@@ -1,14 +1,10 @@
 package com.binlistapp.di.component
 
 import android.app.Application
-import com.binlistapp.di.module.AppSubcomponents
-import com.binlistapp.di.module.DispatchersModule
-import com.binlistapp.di.module.NetworkModule
+import com.binlistapp.di.module.*
 import com.binlistapp.presentation.main.App
 import dagger.BindsInstance
 import dagger.Component
-import com.binlistapp.di.module.ViewModelFactoryModule
-import com.binlistapp.di.module.ViewModelsModule
 import ru.myproject.currencyconverter.di.scope.ApplicationScope
 
 @Component(
@@ -18,6 +14,7 @@ import ru.myproject.currencyconverter.di.scope.ApplicationScope
         ViewModelFactoryModule::class,
         DispatchersModule::class,
         AppSubcomponents::class,
+        DataBaseModule::class,
     ]
 )
 
