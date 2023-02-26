@@ -1,17 +1,14 @@
 package com.binlistapp.presentation.viewModels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.launch
 import com.binlistapp.data.BinRepository
 import com.binlistapp.data.model.entities.BinItem
 import com.binlistapp.di.qualifiers.dispatchers.DispatcherIO
-import com.binlistapp.utils.functions.ifDebug
-import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class BinCheckViewModel @Inject constructor(
@@ -23,10 +20,6 @@ class BinCheckViewModel @Inject constructor(
         fetchBinItemList()
     }
 
-    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        ifDebug { Log.e("COROUTINE_EXCEPTION", "$throwable\n${throwable.stackTraceToString()}") }
-    }
-
     val loadingStateFlow = binRepository.loadingStateFlow
     val errorSharedFlow = binRepository.errorSharedFlow
     val cardInformationStateFlow = binRepository.cardInformationStateFlow
@@ -36,8 +29,10 @@ class BinCheckViewModel @Inject constructor(
 
 
     fun fetchCardInformation(bin: String) {
-        viewModelScope.launch(dispatcherIO) {
-            binRepository.fetchCardInformation(bin)
+        if (bin.isNotEmpty()) {
+            viewModelScope.launch(dispatcherIO) {
+                binRepository.fetchCardInformation(bin)
+            }
         }
     }
 
@@ -51,8 +46,17 @@ class BinCheckViewModel @Inject constructor(
     }
 
     fun insertBinItem(bin: String) {
+        if (bin.isNotEmpty()) {
+            viewModelScope.launch(dispatcherIO) {
+                binRepository.insertBinItem(bin)
+            }
+        }
+    }
+
+    fun deleteBinItem(binItem: BinItem) {
         viewModelScope.launch(dispatcherIO) {
-            binRepository.insertBinItem(bin)
+            binRepository.deleteBinItem(binItem)
+
         }
     }
 }

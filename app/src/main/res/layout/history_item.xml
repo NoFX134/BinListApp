@@ -9,10 +9,11 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/binHistoryItem"
-        style="@style/TextAppearance.Title"
+        style="@style/TextAppearance.Content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="4dp"
+        tools:text="4200000"
         android:layout_marginTop="2dp"
        />
 

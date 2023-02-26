@@ -29,6 +29,14 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/schemeNetworkTitle"
@@ -100,7 +108,6 @@
             android:id="@+id/luhnContent"
             style="@style/TextAppearance.SelectTitle"
             android:layout_marginStart="24dp"
-            android:text="@string/yes_no"
             app:layout_constraintStart_toEndOf="@id/lengthTitle"
             app:layout_constraintTop_toBottomOf="@+id/luhnTitle" />
 
@@ -117,7 +124,6 @@
             android:id="@+id/typeContent"
             style="@style/TextAppearance.SelectTitle"
             android:layout_marginStart="@dimen/side_indent"
-            android:text="@string/debit_credit"
             app:layout_constraintStart_toEndOf="@id/schemeNetworkTitle"
             app:layout_constraintTop_toBottomOf="@+id/typeTitle" />
 
@@ -134,7 +140,6 @@
             android:id="@+id/prepaidContent"
             style="@style/TextAppearance.SelectTitle"
             android:layout_marginStart="@dimen/side_indent"
-            android:text="@string/yes_no"
             app:layout_constraintStart_toEndOf="@id/schemeNetworkTitle"
             app:layout_constraintTop_toBottomOf="@+id/prepaidTitle" />
 
@@ -160,7 +165,7 @@
             style="@style/TextAppearance.Content"
             android:layout_marginStart="2dp"
             android:ellipsize="end"
-            android:maxEms="8"
+            android:maxEms="6"
             android:singleLine="true"
             app:layout_constraintStart_toEndOf="@id/countryEmoji"
             app:layout_constraintTop_toBottomOf="@+id/countryTitle"
@@ -231,5 +236,6 @@
         android:id="@+id/historyRecycleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp" />
+        android:padding="8dp"
+        android:clipToPadding="false"/>
 </androidx.appcompat.widget.LinearLayoutCompat>

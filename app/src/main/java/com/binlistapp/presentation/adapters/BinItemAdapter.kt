@@ -7,13 +7,17 @@ import androidx.recyclerview.widget.ListAdapter
 import com.binlistapp.data.model.entities.BinItem
 import com.example.binlistapp.R
 
-
 class BinItemAdapter : ListAdapter<BinItem, BinItemViewHolder>(DiffCallback()) {
 
     private var onItemClickListener: ((BinItem) -> Unit)? = null
+    private var recycleClickListener: ((BinItem) -> Unit)? = null
 
     fun setOnItemClickListener(listener: (BinItem) -> Unit) {
         onItemClickListener = listener
+    }
+
+    fun setRecycleClickListener(listener: (BinItem) -> Unit) {
+        recycleClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BinItemViewHolder {
@@ -23,7 +27,7 @@ class BinItemAdapter : ListAdapter<BinItem, BinItemViewHolder>(DiffCallback()) {
     }
 
     override fun onBindViewHolder(holder: BinItemViewHolder, position: Int) {
-        getItem(position).let { holder.bind(it, onItemClickListener) }
+        getItem(position).let { holder.bind(it, onItemClickListener, recycleClickListener) }
     }
 }
 

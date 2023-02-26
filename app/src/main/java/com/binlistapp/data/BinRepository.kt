@@ -33,7 +33,6 @@ class BinRepository @Inject constructor(
             val response = binApi.fetchCardInformation(bin)
             cardInformationMutableStateFlow.value = cardInformationMapper.toEntity(response)
         } catch (throwable: Throwable) {
-            cardInformationMutableStateFlow.value = null
             errorMutableSharedFlow.emit(throwable.toString())
         } finally {
             loadingMutableStateFlow.value = false
@@ -42,10 +41,14 @@ class BinRepository @Inject constructor(
 
     fun fetchBinItemList(): Flow<List<BinItem>> {
         return binItemDao.getAll()
-            .map { listBinItem -> listBinItem.map {binItemMapper.toEntity(it) } }
+            .map { listBinItem -> listBinItem.map { binItemMapper.toEntity(it) } }
     }
 
     suspend fun insertBinItem(bin: String) {
         binItemDao.insert(BinItemDto(bin))
+    }
+
+    suspend fun deleteBinItem(binItem: BinItem) {
+        binItemDao.delete(binItemMapper.toDto(binItem))
     }
 }

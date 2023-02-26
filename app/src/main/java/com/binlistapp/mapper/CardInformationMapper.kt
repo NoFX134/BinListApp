@@ -13,10 +13,13 @@ class CardInformationMapper @Inject constructor(private val application: Applica
 
     fun toEntity(cardInformationResponse: CardInformationResponse): CardInformation {
         return CardInformation(
-            length = cardInformationResponse.numberResponse?.length.toString(),
+            length = when (cardInformationResponse.numberResponse?.length) {
+                null -> ""
+                else -> cardInformationResponse.numberResponse.length.toString()
+            },
             luhn = cardInformationResponse.numberResponse?.luhn,
             scheme = cardInformationResponse.scheme ?: "",
-            type = when (cardInformationResponse.type){
+            type = when (cardInformationResponse.type) {
                 application.getString(R.string.debit) -> DebitCredit.Debit
                 application.getString(R.string.credit) -> DebitCredit.Credit
                 else -> DebitCredit.Undefined
@@ -25,8 +28,8 @@ class CardInformationMapper @Inject constructor(private val application: Applica
             prepaid = cardInformationResponse.prepaid,
             emoji = cardInformationResponse.countryResponse?.emoji ?: "",
             country = cardInformationResponse.countryResponse?.name ?: "",
-            latitude = cardInformationResponse.countryResponse?.latitude,
-            longitude = cardInformationResponse.countryResponse?.longitude,
+            latitude = cardInformationResponse.countryResponse?.latitude.toString(),
+            longitude = cardInformationResponse.countryResponse?.longitude.toString(),
             bankCity = cardInformationResponse.bankResponse?.city ?: "",
             bankName = cardInformationResponse.bankResponse?.name ?: "",
             bankPhone = cardInformationResponse.bankResponse?.phone ?: "",

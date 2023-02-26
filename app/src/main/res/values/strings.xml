@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">BinListApp</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="scheme_network">SCHEME/NETWORK</string>
     <string name="brand">BRAND</string>
     <string name="card_number">CARD NUMBER</string>
@@ -16,4 +15,8 @@
     <string name="debit">debit</string>
     <string name="credit">credit</string>
     <string name="history">История запросов</string>
+
+    <string name="bank_name_and_city">%s, %s</string>
+    <string name="coordinates">latitude: %s \nlongitude: %s</string>
+    <string name="refresh_error">Не удалось обновить данные</string>
 </resources>

@@ -9,12 +9,12 @@
     </style>
 
     <style name="TextAppearance.Title" parent="TextAppearance.Medium">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:lineSpacingExtra">4sp</item>
     </style>
 
     <style name="TextAppearance.SelectTitle" parent="TextAppearance.Title">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">?attr/selectTextColor</item>
         <item name="android:textStyle">bold</item>
         <item name="android:lineSpacingExtra">4sp</item>
@@ -22,19 +22,19 @@
     </style>
 
     <style name="TextAppearance.SmallTitle" parent="TextAppearance.Medium">
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:lineSpacingExtra">4sp</item>
     </style>
 
     <style name="TextAppearance.Content" parent="TextAppearance.Medium">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">?attr/colorOnSecondary</item>
         <item name="android:textStyle">bold</item>
         <item name="android:lineSpacingExtra">4sp</item>
     </style>
 
     <style name="TextAppearance.SmallContent" parent="TextAppearance.Content">
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:lineSpacingExtra">4sp</item>
     </style>
 

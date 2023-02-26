@@ -1,7 +1,9 @@
 package com.binlistapp.presentation.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -10,6 +12,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -23,8 +27,11 @@ import com.binlistapp.presentation.adapters.BinItemAdapter
 import com.binlistapp.presentation.main.App
 import com.binlistapp.presentation.viewModels.BinCheckViewModel
 import com.binlistapp.utils.titleCaseFirstChar
+import com.binlistapp.utils.toPhone
+import com.binlistapp.utils.toURL
 import com.example.binlistapp.R
 import com.example.binlistapp.databinding.FragmentBinCheckBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import ru.myproject.currencyconverter.di.scope.FragmentScope
 import javax.inject.Inject
@@ -59,9 +66,12 @@ class BinCheckFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupObservers()
-        setupListeners()
         setupRecycleView()
+        observeCardInformationStateFlow()
+        observeBinItemListStateFlow()
+        observeLoadingStateFlow()
+        observeSharedStateFlow()
+        setupListeners()
     }
 
     private fun setupRecycleView() {
@@ -69,6 +79,52 @@ class BinCheckFragment : Fragment() {
         binding.historyRecycleView.apply {
             adapter = binItemAdapter
             layoutManager = LinearLayoutManager(activity)
+        }
+    }
+
+    private fun observeSharedStateFlow() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.errorSharedFlow.collect {
+                    Snackbar.make(
+                        binding.root,
+                        getString(R.string.refresh_error),
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun observeLoadingStateFlow() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.loadingStateFlow.collect { loading ->
+                    binding.progressBar.isVisible = loading
+                }
+            }
+        }
+    }
+
+    private fun observeBinItemListStateFlow() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.binItemListStateFlow.collect { binItemList ->
+                    binItemAdapter.submitList(binItemList)
+                }
+            }
+        }
+    }
+
+    private fun observeCardInformationStateFlow() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.cardInformationStateFlow.collect { cardInformation ->
+                    if (cardInformation != null) {
+                        setupViews(cardInformation)
+                    }
+                }
+            }
         }
     }
 
@@ -80,25 +136,13 @@ class BinCheckFragment : Fragment() {
             }
             false
         }
-    }
-
-    private fun setupObservers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.cardInformationStateFlow.collect { cardInformation ->
-                    if (cardInformation != null) {
-                        setupViews(cardInformation)
-                    }
-                }
-            }
+        binItemAdapter.setOnItemClickListener { binItem ->
+            binding.binInputField.setText(binItem.binNumber)
+            viewModel.fetchCardInformation(binItem.binNumber)
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.binItemListStateFlow.collect { binItemList ->
-                    binItemAdapter.submitList(binItemList)
-                }
-            }
+        binItemAdapter.setRecycleClickListener { binItem ->
+            viewModel.deleteBinItem(binItem)
         }
     }
 
@@ -112,9 +156,34 @@ class BinCheckFragment : Fragment() {
             typeContent.text = setupDebitCredit(cardInformation.type)
             countryEmoji.text = cardInformation.emoji
             countryName.text = cardInformation.country
-            bankNameCity.text = cardInformation.bankName
+            bankNameCity.text = if (cardInformation.bankName.isNotEmpty()) getString(
+                R.string.bank_name_and_city,
+                cardInformation.bankName,
+                cardInformation.bankCity
+            ) else cardInformation.bankCity
             bankUrl.text = cardInformation.bankUrl
             bankPhone.text = cardInformation.bankPhone
+            coordinates.text =
+                getString(R.string.coordinates, cardInformation.latitude, cardInformation.longitude)
+
+            bankUrl.setOnClickListener {
+                val urlUri = Uri.parse(cardInformation.bankUrl.toURL())
+                val urlIntent = Intent(Intent.ACTION_VIEW, urlUri)
+                ContextCompat.startActivity(requireContext(), urlIntent, null)
+            }
+
+            bankPhone.setOnClickListener {
+                val phoneUri = Uri.parse("tel:${cardInformation.bankPhone.toPhone()}")
+                val phoneIntent = Intent(Intent.ACTION_DIAL, phoneUri)
+                ContextCompat.startActivity(requireContext(), phoneIntent, null)
+            }
+
+            coordinates.setOnClickListener {
+                val geoUri =
+                    Uri.parse("geo:${cardInformation.latitude},${cardInformation.longitude}")
+                val geoIntent = Intent(Intent.ACTION_VIEW, geoUri)
+                ContextCompat.startActivity(requireContext(), geoIntent, null)
+            }
         }
     }
 
