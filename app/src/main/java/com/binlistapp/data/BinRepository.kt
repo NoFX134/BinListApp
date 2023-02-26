@@ -33,7 +33,6 @@ class BinRepository @Inject constructor(
             val response = binApi.fetchCardInformation(bin)
             cardInformationMutableStateFlow.value = cardInformationMapper.toEntity(response)
         } catch (throwable: Throwable) {
-            cardInformationMutableStateFlow.value = null
             errorMutableSharedFlow.emit(throwable.toString())
         } finally {
             loadingMutableStateFlow.value = false

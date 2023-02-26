@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import com.binlistapp.data.model.entities.BinItem
 import com.example.binlistapp.R
 
-
 class BinItemAdapter : ListAdapter<BinItem, BinItemViewHolder>(DiffCallback()) {
 
     private var onItemClickListener: ((BinItem) -> Unit)? = null

@@ -1,7 +1,9 @@
 package com.binlistapp.presentation.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -10,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -23,6 +26,8 @@ import com.binlistapp.presentation.adapters.BinItemAdapter
 import com.binlistapp.presentation.main.App
 import com.binlistapp.presentation.viewModels.BinCheckViewModel
 import com.binlistapp.utils.titleCaseFirstChar
+import com.binlistapp.utils.toPhone
+import com.binlistapp.utils.toURL
 import com.example.binlistapp.R
 import com.example.binlistapp.databinding.FragmentBinCheckBinding
 import kotlinx.coroutines.launch
@@ -59,9 +64,9 @@ class BinCheckFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecycleView()
         setupObservers()
         setupListeners()
-        setupRecycleView()
     }
 
     private fun setupRecycleView() {
@@ -79,6 +84,10 @@ class BinCheckFragment : Fragment() {
                 viewModel.insertBinItem(v.text.toString())
             }
             false
+        }
+        binItemAdapter.setOnItemClickListener { binItem ->
+            binding.binInputField.setText(binItem.binNumber)
+            viewModel.fetchCardInformation(binItem.binNumber)
         }
     }
 
@@ -112,9 +121,34 @@ class BinCheckFragment : Fragment() {
             typeContent.text = setupDebitCredit(cardInformation.type)
             countryEmoji.text = cardInformation.emoji
             countryName.text = cardInformation.country
-            bankNameCity.text = cardInformation.bankName
+            bankNameCity.text = getString(
+                R.string.bank_name_and_city,
+                cardInformation.bankName,
+                cardInformation.bankCity
+            )
             bankUrl.text = cardInformation.bankUrl
             bankPhone.text = cardInformation.bankPhone
+            coordinates.text =
+                getString(R.string.coordinates, cardInformation.latitude, cardInformation.longitude)
+
+            bankUrl.setOnClickListener {
+                val urlUri = Uri.parse(cardInformation.bankUrl.toURL())
+                val urlIntent = Intent(Intent.ACTION_VIEW, urlUri)
+                ContextCompat.startActivity(requireContext(), urlIntent, null)
+            }
+
+            bankPhone.setOnClickListener {
+                val phoneUri = Uri.parse("tel:${cardInformation.bankPhone.toPhone()}")
+                val phoneIntent = Intent(Intent.ACTION_DIAL, phoneUri)
+                ContextCompat.startActivity(requireContext(), phoneIntent, null)
+            }
+
+            coordinates.setOnClickListener {
+                val geoUri =
+                    Uri.parse("geo:${cardInformation.latitude},${cardInformation.longitude}")
+                val geoIntent = Intent(Intent.ACTION_VIEW, geoUri)
+                ContextCompat.startActivity(requireContext(), geoIntent, null)
+            }
         }
     }
 

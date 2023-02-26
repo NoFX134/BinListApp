@@ -3,15 +3,15 @@ package com.binlistapp.presentation.viewModels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.launch
 import com.binlistapp.data.BinRepository
 import com.binlistapp.data.model.entities.BinItem
 import com.binlistapp.di.qualifiers.dispatchers.DispatcherIO
 import com.binlistapp.utils.functions.ifDebug
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class BinCheckViewModel @Inject constructor(

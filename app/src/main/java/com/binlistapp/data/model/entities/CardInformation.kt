@@ -11,9 +11,10 @@ data class CardInformation(
     val prepaid: Boolean?,
     val emoji: String,
     val country: String,
-    val longitude: Double?,
-    val latitude: Double?,
+    val longitude: String,
+    val latitude: String,
     val bankName: String,
-    val bankCity: String,    val bankUrl: String,
+    val bankCity: String,
+    val bankUrl: String,
     val bankPhone: String,
 )
